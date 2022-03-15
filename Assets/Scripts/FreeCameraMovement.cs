@@ -10,10 +10,16 @@ public class FreeCameraMovement : MonoBehaviour
     public float zoomSensitivity = 10f;
     public float fastZoomSensitivity = 50f;
     private bool looking = false;
+    private bool fastMode = false;
 
     void Update()
     {
-        var fastMode = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        if(Input.GetKey(KeyCode.Alpha1)){
+            fastMode = false;
+        }
+        if(Input.GetKey(KeyCode.Alpha2)){
+            fastMode = true;
+        }
         var movementSpeed = fastMode ? this.fastMovementSpeed : this.movementSpeed;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
             transform.position = transform.position + (-transform.right * movementSpeed * Time.deltaTime);
@@ -33,15 +39,21 @@ public class FreeCameraMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.E)){
             transform.position = transform.position + (-transform.up * movementSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.PageUp)){
+        if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.PageUp) || Input.GetKey(KeyCode.Space)){
             transform.position = transform.position + (Vector3.up * movementSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.PageDown)){
+        if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.PageDown) || Input.GetKey(KeyCode.LeftShift)){
             transform.position = transform.position + (-Vector3.up * movementSpeed * Time.deltaTime);
         }
         if (looking){
             float newRotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * freeLookSensitivity;
             float newRotationY = transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * freeLookSensitivity;
+            if(newRotationY > 86f && newRotationY < 90f){
+                newRotationY = 86f;
+            }
+            if(newRotationY < 274f && newRotationY > 270f){
+                newRotationY = 274f;
+            }
             transform.localEulerAngles = new Vector3(newRotationY, newRotationX, 0f);
         }
         float axis = Input.GetAxis("Mouse ScrollWheel");

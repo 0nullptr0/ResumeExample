@@ -8,7 +8,7 @@ public class MapGenerator : MonoBehaviour
     public float[] probability_list;
 
     void Start()
-    {
+    {   
         Debug.Log("X: "+(gameObject.transform.position.x-75)/3+", Z: "+(gameObject.transform.position.z-75)/3);
         int check_it;
         float[] probability_list = new float[prefab_list.Length];
@@ -25,7 +25,7 @@ public class MapGenerator : MonoBehaviour
         //Debug.Log("First List member: "+passed[0]);
         //Debug.Log("Last List member: "+passed[prefab_list.Length-1]);
         //while(true){
-            check_it = 1;
+            check_it = Random.Range(0, 2);
             if(passed[check_it]){
                 if(MapVariables.length_of_the_map>0){
                     MapVariables.length_of_the_map--;
@@ -35,9 +35,16 @@ public class MapGenerator : MonoBehaviour
                         if(gameObject.tag == "Forward"){
                             if(MapVariables.global_rotation>-1 && MapVariables.global_rotation<1 || 
                             MapVariables.global_rotation>179 && MapVariables.global_rotation<181){
+                                /*
+                                # ^ #   &   #   #
+                                #   #   &   #   #
+                                #   #   &   # V #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x,MapVariables.z+1] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z]){
                                     if(prefab_list[check_it].tag == "Left"){
-                                        if(!MapVariables.MaObLib[MapVariables.x,MapVariables.z+1] && 
+                                        if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] && 
                                         !MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1]){
                                             if(Random.Range(0,2)==0){
                                                 MapVariables.global_rotation = 270f;
@@ -48,7 +55,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 270f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 0f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 0f;
                                     }
                                     MapVariables.x++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -70,7 +83,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 90f;
+                                        }else{
+                                            MapVariables.global_rotation = 180f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 180f;
                                     }
                                     MapVariables.x--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -85,6 +104,13 @@ public class MapGenerator : MonoBehaviour
                             }
                             if(MapVariables.global_rotation>89 && MapVariables.global_rotation<91 || 
                             MapVariables.global_rotation>269 && MapVariables.global_rotation<271){
+                                /*
+                                # # #   &   # # #
+                                    >   &   <
+                                # # #   &   # # #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x+1,MapVariables.z] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x,MapVariables.z+1]){
                                     if(prefab_list[check_it].tag == "Left"){
                                         if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] && 
@@ -98,7 +124,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 90f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 90f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 90f;
                                     }
                                     MapVariables.z++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -120,7 +152,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 270f;
+                                        }else{
+                                            MapVariables.global_rotation = 270f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 270f;
                                     }
                                     MapVariables.z--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -136,9 +174,20 @@ public class MapGenerator : MonoBehaviour
                         }
                         if(gameObject.tag == "Left"){
                             if(MapVariables.global_rotation>-1 && MapVariables.global_rotation<1){
+                                /*
+                                # ^ #
+                                    #
+                                # # #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z]){
                                     if(prefab_list[check_it].tag == "Left"){
-                                        if(!MapVariables.MaObLib[MapVariables.x,MapVariables.z+1] && 
+                                        if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] && 
                                         !MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1]){
                                             if(Random.Range(0,2)==0){
                                                 MapVariables.global_rotation = 270f;
@@ -149,7 +198,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 270f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 0f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 0f;
                                     }
                                     MapVariables.x++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -171,7 +226,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 90f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 270f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 270f;
                                     }
                                     MapVariables.z++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -185,6 +246,17 @@ public class MapGenerator : MonoBehaviour
                                 }
                             }
                             if(MapVariables.global_rotation>89 && MapVariables.global_rotation<91){
+                                /*
+                                #   #
+                                #   >
+                                # # #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z]){
                                     if(prefab_list[check_it].tag == "Left"){
                                         if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] && 
@@ -198,7 +270,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 270f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 0f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 0f;
                                     }
                                     MapVariables.x++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -220,7 +298,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 270f;
+                                        }else{
+                                            MapVariables.global_rotation = 90f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 90f;
                                     }
                                     MapVariables.z--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -234,6 +318,17 @@ public class MapGenerator : MonoBehaviour
                                 }
                             }
                             if(MapVariables.global_rotation>179 && MapVariables.global_rotation<181){
+                                /*
+                                # # #
+                                #   
+                                # V #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z]){
                                     if(prefab_list[check_it].tag == "Left"){
                                         if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] && 
@@ -247,7 +342,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 90f;
+                                        }else{
+                                            MapVariables.global_rotation = 180f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 180f;
                                     }
                                     MapVariables.x--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -269,7 +370,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 270f;
+                                        }else{
+                                            MapVariables.global_rotation = 90f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 90f;
                                     }
                                     MapVariables.z--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -283,6 +390,17 @@ public class MapGenerator : MonoBehaviour
                                 }
                             }
                             if(MapVariables.global_rotation>269 && MapVariables.global_rotation<271){
+                                /*
+                                # # #
+                                <   #
+                                #   #
+                                */
+                                /*MapVariables.MaObLib[MapVariables.x+1,MapVariables.z+1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1] = true;
+                                MapVariables.MaObLib[MapVariables.x+1,MapVariables.z] = true;
+                                MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] = true;*/
                                 if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z]){
                                     if(prefab_list[check_it].tag == "Left"){
                                         if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1] && 
@@ -296,7 +414,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 0f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z-1]){
                                             MapVariables.global_rotation = 90f;
+                                        }else{
+                                            MapVariables.global_rotation = 180f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 180f;
                                     }
                                     MapVariables.x--;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -318,7 +442,13 @@ public class MapGenerator : MonoBehaviour
                                             MapVariables.global_rotation = 90f;
                                         }else if(!MapVariables.MaObLib[MapVariables.x-1,MapVariables.z+1]){
                                             MapVariables.global_rotation = 180f;
+                                        }else{
+                                            MapVariables.global_rotation = 270f;
+                                            check_it = 0;
                                         }
+                                    }
+                                    if(prefab_list[check_it].tag == "Forward"){
+                                            MapVariables.global_rotation = 270f;
                                     }
                                     MapVariables.z++;
                                     MapVariables.MaObLi[MapVariables.x,MapVariables.z] = Instantiate(prefab_list[check_it], 
@@ -475,3 +605,4 @@ public class MapGenerator : MonoBehaviour
         //}
     }
 }
+

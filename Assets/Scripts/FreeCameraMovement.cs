@@ -14,6 +14,10 @@ public class FreeCameraMovement : MonoBehaviour
 
     void Update()
     {
+        
+        Debug.Log("Camera Pos    (x:"+Mathf.RoundToInt(gameObject.transform.position.x/3)+
+        ", y:"+Mathf.RoundToInt(gameObject.transform.position.y/3)+
+        ", z:"+Mathf.RoundToInt(gameObject.transform.position.z/3)+")");
         if(Input.GetKey(KeyCode.Alpha1)){
             fastMode = false;
         }

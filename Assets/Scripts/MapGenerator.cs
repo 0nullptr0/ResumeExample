@@ -9,7 +9,7 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {   
-        Debug.Log("X: "+(gameObject.transform.position.x-75)/3+", Z: "+(gameObject.transform.position.z-75)/3);
+        Debug.Log("X: "+(gameObject.transform.position.x)/3+", Z: "+(gameObject.transform.position.z)/3);
         int check_it;
         float[] probability_list = new float[prefab_list.Length];
         for(int i = 0; i<prefab_list.Length; i++){
@@ -25,7 +25,7 @@ public class MapGenerator : MonoBehaviour
         //Debug.Log("First List member: "+passed[0]);
         //Debug.Log("Last List member: "+passed[prefab_list.Length-1]);
         //while(true){
-            check_it = Random.Range(0, 2);
+            check_it = 1;
             if(passed[check_it]){
                 if(MapVariables.length_of_the_map>0){
                     MapVariables.length_of_the_map--;

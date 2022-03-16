@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1208152555454577068}
   - component: {fileID: -1062592855824386420}
+  - component: {fileID: 7378843234507088493}
   m_Layer: 0
   m_Name: Corridor_3x3x3
   m_TagString: Forward
@@ -50,6 +51,22 @@ MonoBehaviour:
   - {fileID: 4051697760599950986}
   - {fileID: 5278796462143054832, guid: 68e54bdc5a78b9641a9d86582d0ec697, type: 3}
   probability_list: []
+--- !u!114 &7378843234507088493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051697760599950986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19efae563cb2f9e438a2c3604478f30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x_start: -1
+  z_start: 0
+  x_end: 1
+  z_end: 0
 --- !u!1001 &2136289338006936925
 PrefabInstance:
   m_ObjectHideFlags: 0

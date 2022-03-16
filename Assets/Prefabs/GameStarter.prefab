@@ -57,3 +57,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab_: {fileID: 6256315101927842685, guid: 55d99a8d8908739439190c135d855ce1, type: 3}
+  camera_prefab: {fileID: 8721680256612761438, guid: 14108b0a95e37f840a6e78b1dae9f354, type: 3}

@@ -8,4 +8,7 @@ public class BlockData : MonoBehaviour
     public int z_start;
     public int x_end;
     public int z_end;
+    public int size_x;
+    public int size_z;
+    public int changed_direction;
 }

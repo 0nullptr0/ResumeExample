@@ -12,6 +12,7 @@ public class MapVariables : MonoBehaviour
     public static int z = dimension_z/2;
     public static GameObject[,] MaObLi;
     public static bool[,] MaObLib;
+    public static int global_direction = 0;
     public static float global_rotation = 0f;
     void Start()
     {

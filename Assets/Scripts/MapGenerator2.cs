@@ -65,7 +65,7 @@ public class MapGenerator2 : MonoBehaviour
                     }
                 }
                 //
-                //If chosen, instatiate prefab and generate bklocked area with it
+                //If chosen, instatiate prefab and generate blocked area with it
                 //
 
                 Instantiate(prefab_list[check_it], 

@@ -8,6 +8,7 @@ TagManager:
   - Right
   - Forward
   - AnyDirection
+  - MusicPillar
   layers:
   - Default
   - TransparentFX

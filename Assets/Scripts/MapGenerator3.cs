@@ -7,8 +7,7 @@ public class MapGenerator3 : MonoBehaviour
     public Transform roof;
     public Transform floor;
     public Transform border;
-    public Transform wall;
-    public Vector2 mapSize;
+    public Vector3 mapSize;
 
     [Range(0,1)]
     public float wallProbability;
@@ -21,7 +20,6 @@ public class MapGenerator3 : MonoBehaviour
     Queue<Pos> randomizedPosList;
 
     public int seed = 1;
-    public int height = 1;
     Pos mapCentre;
     public bool[,] previousWallMap;
     public bool[,] wallMap;
@@ -33,19 +31,19 @@ public class MapGenerator3 : MonoBehaviour
 
     //################# map generation method #################
     public void generateMap(){
-        previousWallMap = new bool[(int)mapSize.x, (int)mapSize.y];
+        previousWallMap = new bool[(int)mapSize.x, (int)mapSize.z];
         int currentLevel = -1;
-        for(int height_ = 0; height_<height; height_++){
+        for(int height_ = 0; height_<mapSize.y; height_++){
             currentLevel++;
             planePosList = new List<Pos>();
             for(int i = 0; i<mapSize.x; i++){
-                for(int j = 0; j<mapSize.y; j++){
+                for(int j = 0; j<mapSize.z; j++){
                     planePosList.Add(new Pos(i,j));
                 }
             }
             randomizedPosList = new Queue<Pos>(Classes.Randomize(
                 planePosList.ToArray(), seed+height_));
-            mapCentre = new Pos((int)(mapSize.x/2), (int)(mapSize.y/2));
+            mapCentre = new Pos((int)(mapSize.x/2), (int)(mapSize.z/2));
             string holderName = "GeneratedFragment"+(height_+1);
             if(transform.Find(holderName)){
                 DestroyImmediate(transform.Find(holderName).gameObject);
@@ -53,38 +51,32 @@ public class MapGenerator3 : MonoBehaviour
             Transform mapHolder = new GameObject(holderName).transform;
             mapHolder.parent = transform;
             if(fillMap){
-                wallMap = new bool[(int)mapSize.x, (int)mapSize.y];
+                wallMap = new bool[(int)mapSize.x, (int)mapSize.z];
                 for(int i = 0; i<mapSize.x; i++){
-                    for(int j = 0; j<mapSize.y; j++){
+                    for(int j = 0; j<mapSize.z; j++){
                         Vector3 planePos = posToPos(i,j);
-                        planePos.y = height_*3;
-                        Transform newPlane = Instantiate(wall, planePos, 
+                        planePos.z = height_*3;
+                        Transform newPlane = Instantiate(border, planePos, 
                         Quaternion.Euler(0f,0f,0f)) as Transform;
                         newPlane.parent = mapHolder;
                     }
                 }
             }else{
-                wallMap = new bool[(int)mapSize.x, (int)mapSize.y];
-                int noWallBlocks = (int)(mapSize.x*mapSize.y*wallProbability);
+                wallMap = new bool[(int)mapSize.x, (int)mapSize.z];
+                int noWallBlocks = (int)(mapSize.x*mapSize.z*wallProbability);
                 int wallCount = 0;
                 for(int i = 0; i<noWallBlocks; i++){
                     Pos randomPos = getRandomPos();
-                    wallMap[randomPos.x, randomPos.y] = true;
+                    wallMap[randomPos.x, randomPos.z] = true;
                     wallCount++;
-                    if(randomPos != mapCentre && canBePassed(wallMap, wallCount)){
-                        /*Vector3 wallPos = posToPos(randomPos.x, randomPos.y);
-                        wallPos.y = height_*3;
-                        Transform newWall = Instantiate(wall, wallPos, 
-                        Quaternion.identity) as Transform;
-                        newWall.parent = mapHolder;*/
-                    }else{
-                        wallMap[randomPos.x, randomPos.y] = false;
+                    if(!(randomPos != mapCentre && canBePassed(wallMap, wallCount))){
+                        wallMap[randomPos.x, randomPos.z] = false;
                         wallCount--;
                     }
                 }
                 if(fillFloor && height_ == 0){
                     for(int i = 0; i<mapSize.x; i++){
-                        for(int j = 0; j<mapSize.y; j++){
+                        for(int j = 0; j<mapSize.z; j++){
                             if(!wallMap[i,j]){
                                 Vector3 planePos = posToPos(i,j);
                                 planePos.y = height_*3;
@@ -95,9 +87,9 @@ public class MapGenerator3 : MonoBehaviour
                         }
                     }
                 }
-                if(fillRoof && height_+1 == height){
+                if(fillRoof && height_+1 == mapSize.y){
                     for(int i = 0; i<mapSize.x; i++){
-                        for(int j = 0; j<mapSize.y; j++){
+                        for(int j = 0; j<mapSize.z; j++){
                             if(!wallMap[i,j]){
                                 Vector3 planePos = posToPos(i,j);
                                 planePos.y = height_*3;
@@ -110,7 +102,7 @@ public class MapGenerator3 : MonoBehaviour
                 }
                 if(height_>0){
                     for(int i = 0; i<mapSize.x; i++){
-                        for(int j = 0; j<mapSize.y; j++){
+                        for(int j = 0; j<mapSize.z; j++){
                             //floor
                             if(!wallMap[i,j] && previousWallMap[i,j]){
                                 Vector3 planePos = posToPos(i,j);
@@ -132,7 +124,7 @@ public class MapGenerator3 : MonoBehaviour
                 }
                 if(fillBorder){
                     for(int i = 0; i<mapSize.x; i++){
-                        for(int j = 0; j<mapSize.y; j++){
+                        for(int j = 0; j<mapSize.z; j++){
                             if(i<mapSize.x-1)
                             if(!wallMap[i,j] && wallMap[i+1,j]){
                                 Vector3 planePos = posToPos(i,j);
@@ -141,7 +133,7 @@ public class MapGenerator3 : MonoBehaviour
                                 Quaternion.Euler(0f,180f,0f)) as Transform;
                                 newPlane.parent = mapHolder;
                             }
-                            if(j<mapSize.y-1)
+                            if(j<mapSize.z-1)
                             if(!wallMap[i,j] && wallMap[i,j+1]){
                                 Vector3 planePos = posToPos(i,j);
                                 planePos.y = height_*3;
@@ -176,7 +168,7 @@ public class MapGenerator3 : MonoBehaviour
                             Quaternion.Euler(0f,270f,0f)) as Transform;
                             newPlane.parent = mapHolder;
                         }
-                        j = (int)(mapSize.y-1);
+                        j = (int)(mapSize.z-1);
                         if(!wallMap[i,j]){
                             Vector3 planePos = posToPos(i,j);
                             planePos.y = height_*3;
@@ -185,7 +177,7 @@ public class MapGenerator3 : MonoBehaviour
                             newPlane.parent = mapHolder;
                         }
                     }
-                    for(int j = 0; j<mapSize.y; j++){
+                    for(int j = 0; j<mapSize.z; j++){
                         int i = 0;
                         if(!wallMap[i,j]){
                             Vector3 planePos = posToPos(i,j);
@@ -206,7 +198,7 @@ public class MapGenerator3 : MonoBehaviour
                 }
             }
             for(int i = 0; i<mapSize.x; i++){
-                for(int j = 0; j<mapSize.y; j++){
+                for(int j = 0; j<mapSize.z; j++){
                     previousWallMap[i,j] = wallMap[i,j];
                 }                    
             }
@@ -228,23 +220,23 @@ public class MapGenerator3 : MonoBehaviour
         wallMap.GetLength(1)];
         Queue<Pos> queue = new Queue<Pos>();
         queue.Enqueue(mapCentre);
-        mapFlags[mapCentre.x, mapCentre.y] = true;
+        mapFlags[mapCentre.x, mapCentre.z] = true;
         int passingPlaneCount = 1;
         while(queue.Count > 0){
             Pos _plane = queue.Dequeue();
             for(int i = -1; i<=1; i++){
                 for(int j = -1; j<=1; j++){
                     int neighbourX = _plane.x+i;
-                    int neighbourY = _plane.y+j;
+                    int neighbourZ = _plane.z+j;
                     if(i==0 || j==0){
                         if(neighbourX >= 0 && 
                         neighbourX < wallMap.GetLength(0) && 
-                        neighbourY >= 0 && 
-                        neighbourY < wallMap.GetLength(1)){
-                            if(!mapFlags[neighbourX, neighbourY] && 
-                            !wallMap[neighbourX, neighbourY]){
-                                mapFlags[neighbourX, neighbourY] = true;
-                                queue.Enqueue(new Pos(neighbourX, neighbourY));
+                        neighbourZ >= 0 && 
+                        neighbourZ < wallMap.GetLength(1)){
+                            if(!mapFlags[neighbourX, neighbourZ] && 
+                            !wallMap[neighbourX, neighbourZ]){
+                                mapFlags[neighbourX, neighbourZ] = true;
+                                queue.Enqueue(new Pos(neighbourX, neighbourZ));
                                 passingPlaneCount++;
                             }
                         }
@@ -252,13 +244,13 @@ public class MapGenerator3 : MonoBehaviour
                 }
             }
         }
-        int targetPlaneCount = (int)(mapSize.x*mapSize.y-wallCount);
+        int targetPlaneCount = (int)(mapSize.x*mapSize.z-wallCount);
         return targetPlaneCount == passingPlaneCount;
     }
 
     //################# int pos to Vector3 pos #################
-    Vector3 posToPos(int x, int y){
-        return new Vector3(-mapSize.x+x*3, 0, -mapSize.y+y*3);
+    Vector3 posToPos(int x, int z){
+        return new Vector3(-mapSize.x+x*3, 0, -mapSize.z+z*3);
     }
 
     //################# generating random Pos struct #################
@@ -270,15 +262,15 @@ public class MapGenerator3 : MonoBehaviour
 
     public struct Pos{
         public int x;
-        public int y;
+        public int z;
 
-        public Pos(int _x, int _y){
+        public Pos(int _x, int _z){
             x = _x;
-            y = _y;
+            z = _z;
         }
 
         public static bool operator ==(Pos c1, Pos c2){
-            return c1.x == c2.x && c1.y == c2.y;
+            return c1.x == c2.x && c1.z == c2.z;
         }
         public static bool operator !=(Pos c1, Pos c2){
             return !(c1 == c2);

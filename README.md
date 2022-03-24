@@ -10,6 +10,7 @@ Big changes in version 3.1:
 - Optimized generation of blocks and musicPillars.
 - Possibility to turn on/off roof and floor.
 - musicPillars jump to music.
+
 Link to the presentation of the generator:
 https://www.youtube.com/watch?v=MlNXsXFx_po
 

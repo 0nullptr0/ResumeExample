@@ -9,61 +9,77 @@ public class FreeCameraMovement : MonoBehaviour
     public float freeLookSensitivity = 3f;
     public float zoomSensitivity = 10f;
     public float fastZoomSensitivity = 50f;
+    public bool menuCameraMode = true;
     private bool fastMode = false;
+    private Vector3 centreAtStart;
+    private float timeCounter = 0f;
 
-    void Update()
-    {
-        
-        /*Debug.Log("Camera Pos    (x:"+Mathf.RoundToInt(gameObject.transform.position.x/3)+
-        ", y:"+Mathf.RoundToInt(gameObject.transform.position.y/3)+
-        ", z:"+Mathf.RoundToInt(gameObject.transform.position.z/3)+")");*/
-        if(Input.GetKey(KeyCode.Alpha1)){
-            fastMode = false;
+    void Start(){
+        if(menuCameraMode){
+            centreAtStart = transform.position;
         }
-        if(Input.GetKey(KeyCode.Alpha2)){
-            fastMode = true;
-        }
-        var movementSpeed = fastMode ? this.fastMovementSpeed : this.movementSpeed;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
-            transform.position = transform.position + (-transform.right * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
-            transform.position = transform.position + (transform.right * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
-            transform.position = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
-            transform.position = transform.position + (-transform.forward * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.Q)){
-            transform.position = transform.position + (transform.up * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.E)){
-            transform.position = transform.position + (-transform.up * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.PageUp) || Input.GetKey(KeyCode.Space)){
-            transform.position = transform.position + (Vector3.up * movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.PageDown) || Input.GetKey(KeyCode.LeftShift)){
-            transform.position = transform.position + (-Vector3.up * movementSpeed * Time.deltaTime);
-        }
-            float newRotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * freeLookSensitivity;
-            float newRotationY = transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * freeLookSensitivity;
-            if(newRotationY > 86f && newRotationY < 90f){
-                newRotationY = 86f;
+    }
+
+    void Update(){
+        if(menuCameraMode){
+            Debug.Log("X:"+transform.position.x+" Z:"+transform.position.z);
+            //transform.position = new Vector3(Mathf.Sin(2*Mathf.PI*Time.deltaTime*10)+centreAtStart.x, 0f, Mathf.Cos(2*Mathf.PI*Time.deltaTime*10)+centreAtStart.z);
+            timeCounter += Time.deltaTime;
+            float x = Mathf.Cos(timeCounter)/600f;
+            float z = Mathf.Sin(timeCounter)/600f;
+            float y = Mathf.Sin(timeCounter)/1000f;
+            transform.position += new Vector3(x, y/2, z/2);
+        }else{
+                /*Debug.Log("Camera Pos    (x:"+Mathf.RoundToInt(gameObject.transform.position.x/3)+
+            ", y:"+Mathf.RoundToInt(gameObject.transform.position.y/3)+
+            ", z:"+Mathf.RoundToInt(gameObject.transform.position.z/3)+")");*/
+            if(Input.GetKey(KeyCode.Alpha1)){
+                fastMode = false;
             }
-            if(newRotationY < 274f && newRotationY > 270f){
-                newRotationY = 274f;
+            if(Input.GetKey(KeyCode.Alpha2)){
+                fastMode = true;
             }
-            transform.localEulerAngles = new Vector3(newRotationY, newRotationX, 0f);
-        float axis = Input.GetAxis("Mouse ScrollWheel");
-        if (axis != 0){
-            var zoomSensitivity = fastMode ? this.fastZoomSensitivity : this.zoomSensitivity;
-            transform.position = transform.position + transform.forward * axis * zoomSensitivity;
+            var movementSpeed = fastMode ? this.fastMovementSpeed : this.movementSpeed;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
+                transform.position = transform.position + (-transform.right * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)){
+                transform.position = transform.position + (transform.right * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)){
+                transform.position = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)){
+                transform.position = transform.position + (-transform.forward * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.Q)){
+                transform.position = transform.position + (transform.up * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.E)){
+                transform.position = transform.position + (-transform.up * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.PageUp) || Input.GetKey(KeyCode.Space)){
+                transform.position = transform.position + (Vector3.up * movementSpeed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.PageDown) || Input.GetKey(KeyCode.LeftShift)){
+                transform.position = transform.position + (-Vector3.up * movementSpeed * Time.deltaTime);
+            }
+                float newRotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * freeLookSensitivity;
+                float newRotationY = transform.localEulerAngles.x - Input.GetAxis("Mouse Y") * freeLookSensitivity;
+                if(newRotationY > 86f && newRotationY < 90f){
+                    newRotationY = 86f;
+                }
+                if(newRotationY < 274f && newRotationY > 270f){
+                    newRotationY = 274f;
+                }
+                transform.localEulerAngles = new Vector3(newRotationY, newRotationX, 0f);
+            float axis = Input.GetAxis("Mouse ScrollWheel");
+            if (axis != 0){
+                var zoomSensitivity = fastMode ? this.fastZoomSensitivity : this.zoomSensitivity;
+                transform.position = transform.position + transform.forward * axis * zoomSensitivity;
+            }
+            CursorLock();
         }
-        CursorLock();
-        
     }
 
     public void CursorLock()

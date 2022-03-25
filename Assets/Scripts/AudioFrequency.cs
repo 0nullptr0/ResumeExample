@@ -7,7 +7,7 @@ public class AudioFrequency : MonoBehaviour
     public AudioSource audioSource;
 
     int qSamples = 1024;
-    float speed = 2f;
+    float speed = 1f;
     float refValue = 0.1f;
     float rmsValue;
     float dbValue;
@@ -20,10 +20,15 @@ public class AudioFrequency : MonoBehaviour
     private void Start(){
         samples = new float[qSamples];
         string holderName = "MainCamera";
+        string eventHolder = "EventHolder";
         if(audioSource==null){
             if(GameObject.Find(holderName)){
                 audioSource = GameObject.Find(holderName).GetComponent<AudioSource>();
             }
+        }
+        if(GameObject.Find(eventHolder)){
+            speed = GameObject.Find(eventHolder).GetComponent<ChangeWorldVariables>().speed;
+            volume = GameObject.Find(eventHolder).GetComponent<ChangeWorldVariables>().volume;
         }
     }
 

@@ -9,6 +9,7 @@ public class AudioFrequency : MonoBehaviour
     int qSamples = 1024;
     //Speed at which musicPillars move and collapse
     float speed = 1f;
+    //Stepping at which the clip samples are being taken
     float refValue = 0.1f;
     float rmsValue;
     float dbValue;

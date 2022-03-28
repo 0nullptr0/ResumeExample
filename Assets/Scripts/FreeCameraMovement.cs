@@ -14,6 +14,7 @@ public class FreeCameraMovement : MonoBehaviour
     //While true makes camera look at settings, while false makes camera look at the menu
     public bool menuLookAtSettings = false;
     private bool fastMode = false;
+    public Vector3 centreNow;
     public Vector3 centreAtStart;
     //timeCounter to make smooth movement based on realTime
     private float timeCounter = 0f;
@@ -22,6 +23,7 @@ public class FreeCameraMovement : MonoBehaviour
         //Save camera start position to get the anchor point for circullar movement
         if(menuCameraMode){
             centreAtStart = transform.position;
+            centreNow = transform.position;
         }
     }
 
@@ -34,6 +36,8 @@ public class FreeCameraMovement : MonoBehaviour
             float z = Mathf.Sin(timeCounter)/600f;
             float y = Mathf.Sin(timeCounter)/1000f;
             transform.position += new Vector3(x, y/2, z/2);
+            //Change centre position for menu
+            transform.position = Vector3.Lerp(transform.position, centreNow, 3f*Time.deltaTime);
         }else{
             //MainCamera movement and control system
             if(Input.GetKey(KeyCode.Alpha1)){

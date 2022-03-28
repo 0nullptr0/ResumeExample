@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MenuBehaviour : MonoBehaviour
 {
+    public GameObject menuCanvas;
+    public GameObject settingsCanvas;
+
+    void Start(){
+        menuCanvas.SetActive(true);
+        settingsCanvas.SetActive(false);
+    }
+
     public void LoadExistingGame(string sceneName){
         //Take data from file and start from the scene
         SceneManager.LoadScene(sceneName);
@@ -17,12 +25,32 @@ public class MenuBehaviour : MonoBehaviour
 
     public void OpenMainMenuSettings(){
         //Camera animation zoom at settings
-        Debug.Log("Found you !");
-        if(GameObject.FindWithTag("MainCamera").GetComponent<FreeCameraMovement>().menuLookAtSettings){
-            GameObject.FindWithTag("MainCamera").GetComponent<FreeCameraMovement>().menuCameraMode = false;
-            GameObject.FindWithTag("MainCamera").transform.position = Vector3.Lerp(transform.position, new Vector3(-2f,1f,3f), Time.deltaTime*1f);
-            GameObject.FindWithTag("MainCamera").GetComponent<FreeCameraMovement>().menuCameraMode = false;
+        GameObject cameraMain;
+        GameObject canvas;
+        if(GameObject.FindWithTag("MainCamera")){
+            cameraMain = GameObject.FindWithTag("MainCamera");
+            cameraMain.GetComponent<FreeCameraMovement>().centreNow = 
+            new Vector3(cameraMain.transform.position.x+3f, 
+            cameraMain.transform.position.y, 
+            cameraMain.transform.position.z-3f);
         }
+        menuCanvas.SetActive(false);
+        settingsCanvas.SetActive(true);
+    }
+
+    public void BackToMainMenu(){
+        //Camera animation zoom at menu
+        GameObject cameraMain;
+        GameObject canvas;
+        if(GameObject.FindWithTag("MainCamera")){
+            cameraMain = GameObject.FindWithTag("MainCamera");
+            cameraMain.GetComponent<FreeCameraMovement>().centreNow = 
+            new Vector3(cameraMain.transform.position.x-3f, 
+            cameraMain.transform.position.y, 
+            cameraMain.transform.position.z+3f);
+        }
+        menuCanvas.SetActive(true);
+        settingsCanvas.SetActive(false);
     }
 
     public void ExitTheGame(){

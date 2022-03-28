@@ -27,8 +27,8 @@ public class AudioFrequency : MonoBehaviour
             }
         }
         if(GameObject.Find(eventHolder)){
-            speed = GameObject.Find(eventHolder).GetComponent<ChangeWorldVariables>().speed;
-            volume = GameObject.Find(eventHolder).GetComponent<ChangeWorldVariables>().volume;
+            speed = GameObject.Find(eventHolder).GetComponent<WorldVariables>().speed;
+            volume = GameObject.Find(eventHolder).GetComponent<WorldVariables>().volume;
         }
     }
 

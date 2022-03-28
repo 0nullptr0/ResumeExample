@@ -10,8 +10,9 @@ public class FreeCameraMovement : MonoBehaviour
     public float zoomSensitivity = 10f;
     public float fastZoomSensitivity = 50f;
     public bool menuCameraMode = true;
+    public bool menuLookAtSettings = false;
     private bool fastMode = false;
-    private Vector3 centreAtStart;
+    public Vector3 centreAtStart;
     private float timeCounter = 0f;
 
     void Start(){

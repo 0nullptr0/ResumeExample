@@ -30,9 +30,11 @@ public class MapGenerator3 : MonoBehaviour
     }
 
     //################# map generation method #################
+    //Generate the map object
     public void generateMap(){
         previousWallMap = new bool[(int)mapSize.x, (int)mapSize.z];
         int currentLevel = -1;
+        //Generate levels of the map object
         for(int height_ = 0; height_<mapSize.y; height_++){
             currentLevel++;
             planePosList = new List<Pos>();
@@ -41,15 +43,18 @@ public class MapGenerator3 : MonoBehaviour
                     planePosList.Add(new Pos(i,j));
                 }
             }
+            //Generate random position list for wallMap data
             randomizedPosList = new Queue<Pos>(Classes.Randomize(
-                planePosList.ToArray(), seed+height_));
+            planePosList.ToArray(), seed+height_));
             mapCentre = new Pos((int)(mapSize.x/2), (int)(mapSize.z/2));
             string holderName = "GeneratedFragment"+(height_+1);
+            //If map level object already exists, destroy it
             if(transform.Find(holderName)){
                 DestroyImmediate(transform.Find(holderName).gameObject);
             }
             Transform mapHolder = new GameObject(holderName).transform;
             mapHolder.parent = transform;
+            //Fill the entire level with walls
             if(fillMap){
                 wallMap = new bool[(int)mapSize.x, (int)mapSize.z];
                 for(int i = 0; i<mapSize.x; i++){
@@ -62,6 +67,7 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
             }else{
+                //Generate a wallMap array without any inaccessible parts
                 wallMap = new bool[(int)mapSize.x, (int)mapSize.z];
                 int noWallBlocks = (int)(mapSize.x*mapSize.z*wallProbability);
                 int wallCount = 0;
@@ -75,6 +81,7 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
                 if(fillFloor && height_ == 0){
+                    //Fill the floor at the first level of the map object
                     for(int i = 0; i<mapSize.x; i++){
                         for(int j = 0; j<mapSize.z; j++){
                             if(!wallMap[i,j]){
@@ -88,6 +95,7 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
                 if(fillRoof && height_+1 == mapSize.y){
+                    //Fill the roof at the last level of the map object
                     for(int i = 0; i<mapSize.x; i++){
                         for(int j = 0; j<mapSize.z; j++){
                             if(!wallMap[i,j]){
@@ -101,6 +109,7 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
                 if(height_>0){
+                    //Generate roof and floor at current level based on previousWallMap
                     for(int i = 0; i<mapSize.x; i++){
                         for(int j = 0; j<mapSize.z; j++){
                             //floor
@@ -123,6 +132,7 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
                 if(fillBorder){
+                    //Generate walls inside of the map object based on wallMap
                     for(int i = 0; i<mapSize.x; i++){
                         for(int j = 0; j<mapSize.z; j++){
                             if(i<mapSize.x-1)
@@ -159,6 +169,7 @@ public class MapGenerator3 : MonoBehaviour
                             }
                         }
                     }
+                    //Fill empty gaps on sides as walls on x axis
                     for(int i = 0; i<mapSize.x; i++){
                         int j = 0;
                         if(!wallMap[i,j]){
@@ -177,6 +188,7 @@ public class MapGenerator3 : MonoBehaviour
                             newPlane.parent = mapHolder;
                         }
                     }
+                    //Fill empty gaps on sides as walls on z axis
                     for(int j = 0; j<mapSize.z; j++){
                         int i = 0;
                         if(!wallMap[i,j]){
@@ -197,12 +209,14 @@ public class MapGenerator3 : MonoBehaviour
                     }
                 }
             }
+            //Save wallMap data of previous map level for the next level data for roof and floor at the bottom
             for(int i = 0; i<mapSize.x; i++){
                 for(int j = 0; j<mapSize.z; j++){
                     previousWallMap[i,j] = wallMap[i,j];
                 }                    
             }
         }
+        //If changing height to lower levels while in editor, destroy objects that are higher levels
         if(previousLevel>currentLevel){
             for(int i = currentLevel+1; i<=previousLevel+1; i++){
                 string holderName = "GeneratedFragment"+(i);
@@ -222,6 +236,7 @@ public class MapGenerator3 : MonoBehaviour
         queue.Enqueue(mapCentre);
         mapFlags[mapCentre.x, mapCentre.z] = true;
         int passingPlaneCount = 1;
+        //Check whether the map is passable or not
         while(queue.Count > 0){
             Pos _plane = queue.Dequeue();
             for(int i = -1; i<=1; i++){
@@ -249,11 +264,13 @@ public class MapGenerator3 : MonoBehaviour
     }
 
     //################# int pos to Vector3 pos #################
+    //Convert int position to Vector3
     Vector3 posToPos(int x, int z){
         return new Vector3(-mapSize.x+x*3, 0, -mapSize.z+z*3);
     }
 
     //################# generating random Pos struct #################
+    //Generate random position and queue it for canBePassed checking
     public Pos getRandomPos(){
         Pos randomPos = randomizedPosList.Dequeue();
         randomizedPosList.Enqueue(randomPos);
@@ -269,6 +286,7 @@ public class MapGenerator3 : MonoBehaviour
             z = _z;
         }
 
+        //override the operators and change their meaning so that the Pos object can be compared logically
         public static bool operator ==(Pos c1, Pos c2){
             return c1.x == c2.x && c1.z == c2.z;
         }

@@ -7,16 +7,19 @@ public class AudioFrequency : MonoBehaviour
     public AudioSource audioSource;
 
     int qSamples = 1024;
+    //Speed at which musicPillars move and collapse
     float speed = 1f;
     float refValue = 0.1f;
     float rmsValue;
     float dbValue;
+    //Maximum average height of musicPillars in runtime
     float volume = 2;
 
     float previousVolume;
  
     private float[] samples;
     
+    //Take song clip from MainCamera object listener and take worldVariables from eventHolder object if it exists
     private void Start(){
         samples = new float[qSamples];
         string holderName = "MainCamera";
@@ -32,6 +35,7 @@ public class AudioFrequency : MonoBehaviour
         }
     }
 
+    //Generate the height variable for the musicPillar based on clip volume and rmsValue
     private void  Update () {
         GetVolume();
         if((volume*rmsValue+1)>transform.localScale.y){
@@ -42,6 +46,7 @@ public class AudioFrequency : MonoBehaviour
         }
     }
 
+    //Get volume data from the clip
     private void GetVolume(){
         audioSource.GetOutputData(samples, 0);
         int i;

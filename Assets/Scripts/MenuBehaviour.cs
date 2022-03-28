@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 public class MenuBehaviour : MonoBehaviour
 {
     public void LoadExistingGame(string sceneName){
-        //take data from file and start from the scene
+        //Take data from file and start from the scene
         SceneManager.LoadScene(sceneName);
     }
 
     public void StartNewGame(string sceneName){
-        //reset all data and start new game
+        //Reset all data and start new game
         SceneManager.LoadScene(sceneName);
     }
 
     public void OpenMainMenuSettings(){
-        //camera animation zoom at settings
+        //Camera animation zoom at settings
         Debug.Log("Found you !");
         if(GameObject.FindWithTag("MainCamera").GetComponent<FreeCameraMovement>().menuLookAtSettings){
             GameObject.FindWithTag("MainCamera").GetComponent<FreeCameraMovement>().menuCameraMode = false;
@@ -26,6 +26,7 @@ public class MenuBehaviour : MonoBehaviour
     }
 
     public void ExitTheGame(){
+        //Exit the game
         Application.Quit();
     }
 }

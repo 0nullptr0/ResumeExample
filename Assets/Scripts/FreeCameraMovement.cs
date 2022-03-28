@@ -9,13 +9,17 @@ public class FreeCameraMovement : MonoBehaviour
     public float freeLookSensitivity = 3f;
     public float zoomSensitivity = 10f;
     public float fastZoomSensitivity = 50f;
+    //Camera circullar movement if true, otherwise normal movement mode
     public bool menuCameraMode = true;
+    //While true makes camera look at settings, while false makes camera look at the menu
     public bool menuLookAtSettings = false;
     private bool fastMode = false;
     public Vector3 centreAtStart;
+    //timeCounter to make smooth movement based on realTime
     private float timeCounter = 0f;
 
     void Start(){
+        //Save camera start position to get the anchor point for circullar movement
         if(menuCameraMode){
             centreAtStart = transform.position;
         }
@@ -23,17 +27,15 @@ public class FreeCameraMovement : MonoBehaviour
 
     void Update(){
         if(menuCameraMode){
+            //Generate circullar movement of the MainCamera
             Debug.Log("X:"+transform.position.x+" Z:"+transform.position.z);
-            //transform.position = new Vector3(Mathf.Sin(2*Mathf.PI*Time.deltaTime*10)+centreAtStart.x, 0f, Mathf.Cos(2*Mathf.PI*Time.deltaTime*10)+centreAtStart.z);
             timeCounter += Time.deltaTime;
             float x = Mathf.Cos(timeCounter)/600f;
             float z = Mathf.Sin(timeCounter)/600f;
             float y = Mathf.Sin(timeCounter)/1000f;
             transform.position += new Vector3(x, y/2, z/2);
         }else{
-                /*Debug.Log("Camera Pos    (x:"+Mathf.RoundToInt(gameObject.transform.position.x/3)+
-            ", y:"+Mathf.RoundToInt(gameObject.transform.position.y/3)+
-            ", z:"+Mathf.RoundToInt(gameObject.transform.position.z/3)+")");*/
+            //MainCamera movement and control system
             if(Input.GetKey(KeyCode.Alpha1)){
                 fastMode = false;
             }

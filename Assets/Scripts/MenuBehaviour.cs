@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class MenuBehaviour : MonoBehaviour
 {
     public GameObject menuCanvas;
+    public GameObject newGameCanvas;
     public GameObject settingsCanvas;
 
     void Start(){
         menuCanvas.SetActive(true);
         settingsCanvas.SetActive(false);
+        newGameCanvas.SetActive(false);
     }
 
     public void LoadExistingGame(string sceneName){
@@ -41,7 +43,6 @@ public class MenuBehaviour : MonoBehaviour
     public void BackToMainMenu(){
         //Camera animation zoom at menu
         GameObject cameraMain;
-        GameObject canvas;
         if(GameObject.FindWithTag("MainCamera")){
             cameraMain = GameObject.FindWithTag("MainCamera");
             cameraMain.GetComponent<FreeCameraMovement>().centreNow = 
@@ -51,6 +52,16 @@ public class MenuBehaviour : MonoBehaviour
         }
         menuCanvas.SetActive(true);
         settingsCanvas.SetActive(false);
+    }
+
+    public void NewGameClicked(bool a){
+        if(a){
+            menuCanvas.SetActive(false);
+            newGameCanvas.SetActive(true);
+        }else{
+            menuCanvas.SetActive(true);
+            newGameCanvas.SetActive(false);
+        }
     }
 
     public void ExitTheGame(){

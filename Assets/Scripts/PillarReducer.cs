@@ -26,8 +26,8 @@ public class PillarReducer : MonoBehaviour
 
     public void Inspect(){
         foreach (Transform pillar in pillars){
-            if(Vector3.Distance(transform.position, pillar.position) < size){
-                pillar.transform.localScale = new Vector3(1f, 1f, 1f);
+            if(Vector3.Distance(transform.position, pillar.position) < size && pillar.transform.localScale.y > 1.3f){
+                pillar.transform.localScale = Vector3.Lerp(pillar.transform.localScale, new Vector3(4f,Random.Range(1f, 1.2f),4f), Time.deltaTime*5f);
             }
         }
     }

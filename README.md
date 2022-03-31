@@ -13,7 +13,7 @@ Optimization changes:
 Small changes:
 - Added settings menu with volume sliders, graphics drop-down menu and "back to main menu" button.
 - Added "Are you sure" text in main menu before starting a new game.
-- Switched from "PerlinNoise based" musicPilar randomness generation to Random.Range(x,x) based generation.
+- Switched from "PerlinNoise based" musicPillar randomness generation to "Random.Range(x,x) based" generation.
 
 Link to the actual preview of mentioned before changes:
 https://youtu.be/NDHf1yaLD7o

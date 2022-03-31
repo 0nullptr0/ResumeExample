@@ -79,6 +79,10 @@ public class MenuBehaviour : MonoBehaviour
     public void SetEffectsVolume(float volume){
         mainMixer.SetFloat("effectsVolume", volume);
     }
+
+    public void SetQuality(int qualityIndex){
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
     
     //Exit Menu #######################################
     public void ExitTheGame(){

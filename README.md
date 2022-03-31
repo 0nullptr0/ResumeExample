@@ -10,6 +10,7 @@ Optimization changes:
 - Changed musicPillar prefab from "5 quad prefab objects" to one meshed object modeled in blender. (reduced amount of batches)
 - Turned cast-shadows off for music pillars (I'm focused more on light reflection rather than shadow casting which is not even noticable in such dynamic game).
 - Added audioMixer to manage and separate music audio for audioListener from the audio clip for pillar generation to let the player lower the volume of the actual music while not reducing pillar movement at all.
+
 Small changes:
 - Added settings menu with volume sliders, graphics drop-down menu and "back to main menu" button.
 - Added "Are you sure" text in main menu before starting a new game.

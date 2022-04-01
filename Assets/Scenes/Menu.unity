@@ -106131,6 +106131,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1499271118202969106, guid: dec4b98bfcee28849a23633c2e6f992d, type: 3}
+      propertyPath: mainMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 68af94801273a0b43afeb63ce0bb2e9a, type: 2}
+    - target: {fileID: 1499271118202969106, guid: dec4b98bfcee28849a23633c2e6f992d, type: 3}
+      propertyPath: musicVolumeSlider
+      value: 
+      objectReference: {fileID: 730916630}
+    - target: {fileID: 1499271118202969106, guid: dec4b98bfcee28849a23633c2e6f992d, type: 3}
+      propertyPath: masterVolumeSlider
+      value: 
+      objectReference: {fileID: 1487996762}
+    - target: {fileID: 1499271118202969106, guid: dec4b98bfcee28849a23633c2e6f992d, type: 3}
+      propertyPath: effectsVolumeSlider
+      value: 
+      objectReference: {fileID: 1868864085}
     - target: {fileID: 1499271118202969107, guid: dec4b98bfcee28849a23633c2e6f992d, type: 3}
       propertyPath: m_Name
       value: EventHolder

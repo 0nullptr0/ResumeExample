@@ -30,7 +30,7 @@ public class FreeCameraMovement : MonoBehaviour
     void Update(){
         if(menuCameraMode){
             //Generate circullar movement of the MainCamera
-            Debug.Log("X:"+transform.position.x+" Z:"+transform.position.z);
+            //Debug.Log("X:"+transform.position.x+" Z:"+transform.position.z);
             timeCounter += Time.deltaTime;
             float x = Mathf.Cos(timeCounter)/600f;
             float z = Mathf.Sin(timeCounter)/600f;

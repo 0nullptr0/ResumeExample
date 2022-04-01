@@ -70,23 +70,38 @@ public class MenuBehaviour : MonoBehaviour
 
     public void SetMasterVolume(float volume){
         mainMixer.SetFloat("masterVolume", volume);
+        GameObject globalVars;
+        globalVars = GameObject.Find("EventHolder");
+        globalVars.GetComponent<WorldVariables>().masterVolumeP = volume;
     }
 
     public void SetMusicVolume(float volume){
         mainMixer.SetFloat("musicVolume", volume);
+        GameObject globalVars;
+        globalVars = GameObject.Find("EventHolder");
+        globalVars.GetComponent<WorldVariables>().musicVolumeP = volume;
     }
 
     public void SetEffectsVolume(float volume){
         mainMixer.SetFloat("effectsVolume", volume);
+        GameObject globalVars;
+        globalVars = GameObject.Find("EventHolder");
+        globalVars.GetComponent<WorldVariables>().effectsVolumeP = volume;
     }
 
     public void SetQuality(int qualityIndex){
         QualitySettings.SetQualityLevel(qualityIndex);
+        GameObject globalVars;
+        globalVars = GameObject.Find("EventHolder");
+        globalVars.GetComponent<WorldVariables>().graphicsLevel = qualityIndex;
     }
     
     //Exit Menu #######################################
     public void ExitTheGame(){
         //Exit the game
         Application.Quit();
+        //As for now while debugging we can simulate destruction of Variable object
+        //after Application exit
+        SaveSystem.SaveWorldVariables(GameObject.Find("EventHolder").GetComponent<WorldVariables>());
     }
 }

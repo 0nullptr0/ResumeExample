@@ -35,7 +35,7 @@ public class FreeCameraMovement : MonoBehaviour
             float x = Mathf.Cos(timeCounter)/600f;
             float z = Mathf.Sin(timeCounter)/600f;
             float y = Mathf.Sin(timeCounter)/1000f;
-            transform.position += new Vector3(x, y/2, z/2);
+            transform.position += new Vector3(x*4, y*2, z*2);
             //Change centre position for menu
             transform.position = Vector3.Lerp(transform.position, centreNow, 3f*Time.deltaTime);
         }else{

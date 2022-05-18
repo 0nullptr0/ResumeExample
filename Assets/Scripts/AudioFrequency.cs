@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioFrequency : MonoBehaviour
 {
     public AudioSource audioSource;
+    public bool webGlVersion = false;
 
     int qSamples = 1024;
     //Speed at which musicPillars move and collapse
@@ -28,6 +29,7 @@ public class AudioFrequency : MonoBehaviour
         if(audioSource==null){
             if(GameObject.Find(holderName)){
                 audioSource = GameObject.Find(holderName).GetComponent<AudioSource>();
+                webGlVersion = GameObject.Find(holderName).GetComponent<CameraRayCast>().webGlVersion;
             }
         }
         if(GameObject.Find(eventHolder)){
@@ -39,6 +41,9 @@ public class AudioFrequency : MonoBehaviour
     //Generate the height variable for the musicPillar based on clip volume and rmsValue
     private void  Update () {
         GetVolume();
+        if(webGlVersion){
+            rmsValue = Random.Range(0.2f,0.8f);
+        }
         if((volume*rmsValue+1)>transform.localScale.y){
             Vector3 newSize = new Vector3(4f,((volume*rmsValue)*Random.Range(1f,1.5f)*Random.Range(1f,1.5f)+1f),4f);
             transform.localScale = newSize;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClusterParameters : MonoBehaviour
 {
@@ -8,8 +9,16 @@ public class ClusterParameters : MonoBehaviour
     public bool clicked = false;
     public bool activatable = true;
     public bool pillarActivation = false;
+    public bool dataActivation = false;
     public bool pillarActivated = false;
 
+    [SerializeField] public string textForData1;
+    [SerializeField] public string textForData2;
+    [SerializeField] public string textForData3;
+    [SerializeField] public string textForDataTitle;
+    [SerializeField] public Texture imageData1;
+    [SerializeField] public Texture imageData2;
+    
     [SerializeField] private string bubbleText;
     [SerializeField] private string pillarInfo;
     [SerializeField] private Transform selectionSprite;
@@ -17,10 +26,12 @@ public class ClusterParameters : MonoBehaviour
     [SerializeField] private Transform anchorForPillarBubble;
     [SerializeField] private TextMesh textMesh;
     [SerializeField] private TextMesh pillarTextMesh;
+    GameObject mainCamera;
 
     void Start(){
         textMesh.text = bubbleText;
         pillarTextMesh.text = pillarInfo;
+        mainCamera = GameObject.FindWithTag("MainCamera");
     }
 
     void Update(){
@@ -50,6 +61,9 @@ public class ClusterParameters : MonoBehaviour
         if(clicked && activatable && !pillarActivation){
             showData();
         }else{
+            hideData();
+        }
+        if(!mainCamera.GetComponent<CameraRayCast>().panelActive){
             hideData();
         }
         pointed = false;
@@ -106,10 +120,12 @@ public class ClusterParameters : MonoBehaviour
     void showData(){
         Renderer clusterRend = gameObject.GetComponent<Renderer>();
         clusterRend.material.SetColor("_Color", Color.red);
+        clicked = true;
     }
 
     void hideData(){
         Renderer clusterRend = gameObject.GetComponent<Renderer>();
         clusterRend.material.SetColor("_Color", Color.white);
+        clicked = false;
     }
 }

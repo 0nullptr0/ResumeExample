@@ -215,3 +215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfe11767b0ab684387c61d95d8728ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickedAway: 0
+  panelActive: 0
+  canvas: {fileID: 0}
+  textForData1: {fileID: 0}
+  textForData2: {fileID: 0}
+  textForData3: {fileID: 0}
+  textForDataTitle: {fileID: 0}
+  imageData1: {fileID: 0}
+  imageData2: {fileID: 0}

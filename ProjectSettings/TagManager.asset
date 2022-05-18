@@ -10,6 +10,7 @@ TagManager:
   - AnyDirection
   - MusicPillar
   - Cluster
+  - Exit
   layers:
   - Default
   - TransparentFX

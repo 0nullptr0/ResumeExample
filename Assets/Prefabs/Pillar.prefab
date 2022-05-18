@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (1)
+      value: Activateable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -167,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (2)
+      value: Activateable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -233,7 +233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -299,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (4)
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (3)
+      value: Activateable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (5)
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -497,7 +497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Cluster (6)
+      value: Activator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}

@@ -36,9 +36,9 @@ public class CameraRayCast : MonoBehaviour
                         if(param.dataActivation){
                             imageData1.texture = param.imageData1;
                             imageData2.texture = param.imageData2;
-                            textForData1.text = param.textForData1;
-                            textForData2.text = param.textForData2;
-                            textForData3.text = param.textForData3;
+                            textForData1.text = param.textForData1.Replace("\\n","\n");
+                            textForData2.text = param.textForData2.Replace("\\n","\n");
+                            textForData3.text = param.textForData3.Replace("\\n","\n");
                             textForDataTitle.text = param.textForDataTitle;
                             panelActive = true;
                         }
@@ -58,7 +58,15 @@ public class CameraRayCast : MonoBehaviour
         }
         if(panelActive){
             canvas.SetActive(true);
+            canvas.transform.localScale 
+                            = Vector3.Lerp(canvas.transform.localScale,
+                            new Vector3(0.0007f,canvas.transform.localScale.y,
+                            canvas.transform.localScale.z), 5f*Time.deltaTime);
         }else{
+            canvas.transform.localScale 
+                            = Vector3.Lerp(canvas.transform.localScale,
+                            new Vector3(0f,canvas.transform.localScale.y,
+                            canvas.transform.localScale.z), 5f*Time.deltaTime);
             canvas.SetActive(false);
         }
     }

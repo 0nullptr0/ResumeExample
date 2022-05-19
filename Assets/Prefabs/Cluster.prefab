@@ -198,10 +198,16 @@ MonoBehaviour:
   clicked: 0
   activatable: 1
   pillarActivation: 0
+  dataActivation: 0
   pillarActivated: 0
+  textForData1: 
+  textForData2: 
+  textForData3: 
+  textForDataTitle: 
+  imageData1: {fileID: 0}
+  imageData2: {fileID: 0}
   bubbleText: About me
   pillarInfo: 2016
-  dataPanel: {fileID: 0}
   selectionSprite: {fileID: 1449307701677432236}
   anchorForBubble: {fileID: 6566126781733462598}
   anchorForPillarBubble: {fileID: 2335027751402331541}

@@ -59,6 +59,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4082464426517340953}
     m_Modifications:
+    - target: {fileID: -1783623998801386009, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
+      propertyPath: activatable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605202, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -105,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Activateable
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -121,6 +125,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4082464426517340953}
     m_Modifications:
+    - target: {fileID: -1783623998801386009, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
+      propertyPath: activatable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605202, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -167,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Activateable
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
@@ -315,6 +323,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4082464426517340953}
     m_Modifications:
+    - target: {fileID: -1783623998801386009, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
+      propertyPath: activatable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605202, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -361,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449307703198605293, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}
       propertyPath: m_Name
-      value: Activateable
+      value: Static
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 515ef5cdbb8a61d49962844bd9ee29f7, type: 3}

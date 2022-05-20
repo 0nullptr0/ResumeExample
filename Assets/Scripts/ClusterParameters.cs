@@ -8,6 +8,7 @@ public class ClusterParameters : MonoBehaviour
     public bool pointed = false;
     public bool clicked = false;
     public bool activatable = true;
+    public bool corrupted = false;
     public bool pillarActivation = false;
     public bool dataActivation = false;
     public bool pillarActivated = false;
@@ -32,39 +33,44 @@ public class ClusterParameters : MonoBehaviour
         textMesh.text = bubbleText;
         pillarTextMesh.text = pillarInfo;
         mainCamera = GameObject.FindWithTag("MainCamera");
+        if(corrupted){
+                Renderer clusterRend = gameObject.GetComponent<Renderer>();
+                clusterRend.material.SetColor("_Color", new Color(0.5f,0.5f,0.5f,1f));
+            }
     }
 
     void Update(){
         if(pointed){
             whenPointed();
-            if(pillarActivation && clicked){
+            if(pillarActivation && clicked && !corrupted){
                 pillarActivated = true;
                 Renderer clusterRend = gameObject.GetComponent<Renderer>();
                 clusterRend.material.SetColor("_Color", Color.red);
             }
-            if(activatable && !pillarActivation){
+            if(activatable && !pillarActivation && !corrupted){
                 showDataBubble();
             }
-            if(pillarActivation){
+            if(pillarActivation || corrupted){
                 showPillarData();
             }
         }else{
             whenDePointed();
-            if(activatable && !pillarActivation){
+            if(activatable && !pillarActivation && !corrupted){
                 hideDataBubble();
             }
-            if(pillarActivation){
+            if(pillarActivation || corrupted){
                 hidePillarData();
             }
         }
-
-        if(clicked && activatable && !pillarActivation){
-            showData();
-        }else{
-            hideData();
-        }
-        if(!mainCamera.GetComponent<CameraRayCast>().panelActive){
-            hideData();
+        if(!corrupted){
+            if(clicked && activatable && !pillarActivation){
+                showData();
+            }else{
+                hideData();
+            }
+            if(!mainCamera.GetComponent<CameraRayCast>().panelActive){
+                hideData();
+            }
         }
         pointed = false;
     }

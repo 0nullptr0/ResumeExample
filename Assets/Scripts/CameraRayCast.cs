@@ -43,6 +43,9 @@ public class CameraRayCast : MonoBehaviour
                             panelActive = true;
                         }
                     }
+                    Vector3 newPos = new Vector3(param.transform.position.x-1.5f,0,0);
+                    gameObject.GetComponent<FreeCameraMovement>().centreNow = newPos+
+                    gameObject.GetComponent<FreeCameraMovement>().centreAtStart;
                 }
             }else{
                 if(Input.GetMouseButtonDown(0) && !panelActive){
